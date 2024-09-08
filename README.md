@@ -308,13 +308,13 @@ Rumus ini menunjukkan rasio antara jumlah data yang diklasifikasikan dengan bena
 Berikut adalah hasil _accuracy_ 11 buah model yang dilatih:
 | Model | Accuracy |
 | ------ | ------ |
-| Random Forest Classifier | 0.9778 |
-| Logistic Regression   | 0.8777 |
+| Random Forest Classifier | 0.9756 |
+| Logistic Regression   | 0.8773 |
 | SVC  | 0.9830 |
-| MLP Classifier  | 0.9830 |
+| MLP Classifier  | 0.9804 |
 | Cat Boost Classifier  | 0.9809 |
 | AdaBoost Classifier  | 0.8908 |
-| Extra Trees Classifier    | 0.9817 |
+| Extra Trees Classifier    | 0.9822 |
 | Gradient Boosting Classifier   | 0.9643 |
 | Hist Gradient Boosting Classifier | 0.9756 |
 | XGB Classifier   | 0.9752 |
@@ -325,9 +325,11 @@ Berikut adalah hasil _accuracy_ 11 buah model yang dilatih:
 ![image](https://github.com/user-attachments/assets/f8237748-8a5a-48c0-a3b8-4effe7eec70d)
 **Gambar 3.1 Visualisasi Akurasi Model**
 
-Dilihat dari **Tabel Hasil Accuracy** dan **Gambar Visualisasi Accuracy Model**, dapat diketahui bahwa model dengan algoritma **SVC** dan **MLPClassifier** memiliki akurasi tertinggi dengan nilai **0.9830**. Oleh karena itu, salah satu dari model tersebut akan dipilih untuk digunakan dalam memprediksi kualitas pisang.  Diharapkan dengan model yang telah dikembangkan ini, prediksi kualitas pisang dapat dilakukan dengan lebih baik menggunakan salah satu dari model **SVC** atau **MLPClassifier**. Alasan mengapa salah satu dari kedua metode ini dipilih adalah karena keduanya memberikan akurasi yang sangat tinggi dalam prediksi dan mampu menangani data kompleks dengan baik. 
+Berdasarkan **Tabel Hasil Accuracy**, dapat diketahui bahwa model dengan algoritma **SVC** memiliki akurasi tertinggi, yaitu **0.9830**. Oleh karena itu, model **SVC** dipilih untuk digunakan dalam memprediksi kualitas apel. Model ini diharapkan mampu memberikan hasil prediksi yang akurat dan konsisten.
 
-Selain itu, meskipun **RandomForestClassifier** dan **ExtraTreesClassifier** juga memiliki akurasi yang mendekati SVC dan MLPClassifier, kedua model tersebut lebih kompleks dan memerlukan lebih banyak sumber daya komputasi. Sebaliknya, **SVC** dan **MLPClassifier** lebih fleksibel dan dapat dioptimalkan untuk dataset ini tanpa overfitting yang signifikan. Oleh karena itu, model **SVC** atau **MLPClassifier** dipilih untuk digunakan karena keduanya menawarkan keseimbangan antara akurasi dan efisiensi dalam implementasi.
+Alasan mengapa **SVC** dipilih adalah karena algoritma ini memberikan performa terbaik dibandingkan model lainnya dalam tabel, dengan akurasi tertinggi. Selain itu, **SVC** dikenal efektif dalam ruang dimensi tinggi dan memiliki kemampuan yang baik dalam menangani masalah klasifikasi yang kompleks. Meskipun beberapa model seperti **MLP Classifier** dan **Extra Trees Classifier** juga menunjukkan akurasi yang mendekati SVC, **SVC** tetap unggul dalam hal performa.
+
+SVC juga memiliki keuntungan dalam hal fleksibilitas, karena mendukung penggunaan berbagai kernel yang dapat disesuaikan untuk menangani berbagai jenis data. Dengan akurasi yang tinggi dan kemampuan generalisasi yang baik, **SVC** merupakan pilihan yang optimal untuk prediksi kualitas apel pada dataset ini.
 
 ## Referensi
 1. Kementerian Pertanian Republik Indonesia. (2021). Statistik Pertanian 2021. https://www.pertanian.go.id/home/?show=page&act=view&id=61
