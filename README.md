@@ -155,8 +155,173 @@ Gambar 2.2 Analisis Matriks Korelasi
 ---
 
 ## Data Prepation
-Pada proses _Data Prepation_ dilakukan kegiatan seperti _Data Gathering, Data Assesing, _
+Pada proses Data Preparation dilakukan kegiatan seperti Data Gathering, Data Assessing, dan Data Cleaning. Pada proses Data Gathering, data diimpor sedemikian rupa agar bisa dibaca dengan baik menggunakan dataframe Pandas. Untuk proses Data Assessing, berikut adalah beberapa pengecekan yang dilakukan:
+* Duplicate data (data yang serupa dengan data lainnya).
+* Missing value (data atau informasi yang "hilang" atau tidak tersedia)
+* Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada).
 
+Pada proses Data Cleaning yang dilakukan adalah seperti:
+* Converting Column Type (Mengubah tipe suatu kolom).
+* Train Test Split (membagi data menjadi data latih dan data uji).
+* Normalization (mentransformasi data ke dalam skala yang seragam sehingga semua fitur atau atribut memiliki rentang nilai yang sebanding).
+
+Pada projek kasus ini tidak ditemukannya data duplikat dan _missing value_. Adapun untuk outlier juga dilakukan dengan metode _dropping_ menggunakan metode IQR. IQR dihitung dengan mengurangkan kuartil ketiga (Q3) dari kuartil pertama (Q1) sebagaimana rumusnya berikut:
+
+$$IQR = Q_3 - Q_1$$
+
+* Q1 sebagai kuartil pertama
+* Q3 sebagai kuartil ketiga
+Setelah menggunakan metode IQR untuk menghilangkan _outlier_ pada dataset jumlah dataset menjadi 7657 yang awalnya adalah 8000. Pada proyek ini digunakan _Train Test Split_ pada library _sklearn.model_selection_ untuk membagi dataset menjadi data latih dan data uji dengan pembagian sebesar 30:70 dan random state sebesar 42. Pada projek kasus ini digunakan _Normalization_ pada libarary _sklearn.preprocessing_ untuk menormalisasikan dataset. Semua proses ini diperlukan dalam rangka membuat model yang baik
+
+# Modeling
+Algoritma pada proyek ini melakukan pemodelan dengan  11 algoritma, yaitu:
+### 1. Random Forest Classifier
+**Penjelasan:** Metode ensemble learning yang membangun banyak pohon keputusan dan menggabungkan hasilnya untuk klasifikasi.  
+**Keuntungan:** 
+- Kinerja baik pada berbagai jenis dataset
+- Tahan terhadap overfitting
+- Menangani fitur yang tidak relevan  
+**Kerugian:** 
+- Komputasional mahal untuk dataset besar
+- Kurang interpretable dibandingkan pohon keputusan tunggal  
+
+### 2. Logistic Regression
+**Penjelasan:** Model statistik yang memprediksi probabilitas kejadian berdasarkan satu atau lebih variabel independen.  
+**Keuntungan:** 
+- Sederhana dan mudah diinterpretasi
+- Efisien untuk dataset yang dapat dipisahkan secara linear
+- Memberikan probabilitas sebagai output  
+**Kerugian:** 
+- Asumsi linearitas antara variabel independen dan log-odds
+- Kurang efektif untuk hubungan non-linear  
+
+### 3. Support Vector Classifier (SVC)
+**Penjelasan:** Algoritma yang mencari hyperplane optimal untuk memisahkan kelas-kelas dalam ruang fitur.  
+**Keuntungan:** 
+- Efektif dalam ruang dimensi tinggi
+- Fleksibel dengan penggunaan berbagai kernel
+- Kuat terhadap overfitting di ruang dimensi tinggi  
+**Kerugian:** 
+- Lambat untuk dataset besar
+- Pemilihan kernel dan parameter yang tepat dapat menjadi tantangan
+- Kurang interpretable  
+
+### 4. MLP Classifier
+**Penjelasan:** Jaringan saraf tiruan feedforward dengan setidaknya tiga lapisan node.  
+**Keuntungan:** 
+- Mampu mempelajari model nonlinear yang kompleks
+- Dapat menangani data multidimensi
+- Kemampuan generalisasi yang baik jika diatur dengan benar  
+**Kerugian:** 
+- Rentan terhadap overfitting, terutama pada dataset kecil
+- Sensitif terhadap scaling fitur
+- Membutuhkan tuning hyperparameter yang ekstensif  
+
+### 5. CatBoost Classifier
+**Penjelasan:** Implementasi gradient boosting yang efisien dalam menangani fitur kategorikal.  
+**Keuntungan:** 
+- Penanganan otomatis untuk fitur kategorikal
+- Kinerja baik tanpa tuning ekstensif
+- Implementasi GPU untuk pelatihan lebih cepat  
+**Kerugian:** 
+- Memerlukan memori besar untuk dataset besar
+- Mungkin lebih lambat daripada beberapa algoritma boosting lainnya  
+
+### 6. AdaBoost Classifier
+**Penjelasan:** Algoritma meta-learning yang mengkombinasikan beberapa weak learner untuk membentuk strong learner.  
+**Keuntungan:** 
+- Sederhana dan mudah diimplementasikan
+- Dapat digunakan dengan berbagai base learner
+- Cenderung tidak overfitting  
+**Kerugian:** 
+- Sensitif terhadap noise dan outlier
+- Komputasional mahal untuk dataset besar  
+
+### 7. Extra Trees Classifier
+**Penjelasan:** Varian dari Random Forest yang menggunakan pemilihan fitur dan split point acak.  
+**Keuntungan:** 
+- Lebih cepat dibandingkan Random Forest
+- Mengurangi varians lebih baik
+- Baik dalam menangani noise  
+**Kerugian:** 
+- Mungkin kurang akurat dibandingkan Random Forest
+- Dapat menghasilkan pohon yang terlalu dalam jika tidak dibatasi  
+
+### 8. Gradient Boosting Classifier
+**Penjelasan:** Teknik ensemble yang membangun model prediktif secara bertahap.  
+**Keuntungan:** 
+- Kinerja sangat baik pada berbagai jenis dataset
+- Menangani interaksi kompleks antar fitur
+- Fleksibel, dapat dioptimalkan untuk berbagai fungsi loss  
+**Kerugian:** 
+- Rentan terhadap overfitting jika tidak diatur dengan hati-hati
+- Komputasional mahal untuk dataset besar  
+
+### 9. Hist Gradient Boosting Classifier
+**Penjelasan:** Implementasi Gradient Boosting yang lebih cepat menggunakan histogram.  
+**Keuntungan:** 
+- Lebih cepat daripada Gradient Boosting tradisional
+- Dapat menangani dataset besar dengan efisien
+- Kinerja sebanding atau lebih baik daripada implementasi lainnya  
+**Kerugian:** 
+- Kurang akurat untuk dataset kecil
+- Kehilangan presisi karena binning fitur  
+
+### 10. XGBoost Classifier
+**Penjelasan:** Implementasi gradient boosting yang dioptimalkan untuk kinerja dan skalabilitas.  
+**Keuntungan:** 
+- Kinerja sangat baik pada berbagai jenis masalah
+- Dapat menangani dataset besar dengan efisien
+- Fitur built-in untuk menangani data yang hilang  
+**Kerugian:** 
+- Komputasional mahal untuk dataset besar
+- Membutuhkan tuning hyperparameter yang cermat  
+
+### 11. XGBRF Classifier
+**Penjelasan:** Kombinasi dari XGBoost dan Random Forest.  
+**Keuntungan:** 
+- Menggabungkan kekuatan XGBoost dan Random Forest
+- Potensial mengurangi overfitting dibandingkan XGBoost standar
+- Kinerja lebih stabil pada dataset beragam  
+**Kerugian:** 
+- Komputasional lebih mahal
+- Memerlukan lebih banyak memori
+
+# Evaluation
+Dalam tahap evaluasi, metrik yang digunakan adalah _accuracy_. Accuracy didapatkan dengan menghitung persentase dari jumlah prediksi benar dibagi dengan jumlah seluruh prediksi. Rumusnya sebagai berikut:
+
+$$\text{Accuracy} = \frac{\text{TP + TN}}{\text{TN + TP + FN + FP}} \times 100\%$$
+
+# Penjelasan
+- **TP (True Positive):** Jumlah data yang sebenarnya positif dan diprediksi dengan benar sebagai positif.
+- **TN (True Negative):** Jumlah data yang sebenarnya negatif dan diprediksi dengan benar sebagai negatif.
+- **FP (False Positive):** Jumlah data negatif yang diprediksi secara salah sebagai positif (dikenal juga sebagai Kesalahan Tipe I).
+- **FN (False Negative):** Jumlah data positif yang diprediksi secara salah sebagai negatif (dikenal juga sebagai Kesalahan Tipe II).
+
+Rumus ini menunjukkan rasio antara jumlah data yang diklasifikasikan dengan benar (True Positives dan True Negatives) terhadap total data, lalu dikonversi menjadi persentase dengan mengalikannya dengan 100.
+
+Berikut adalah hasil _accuracy_ 11 buah model yang dilatih:
+| Model | Accuracy |
+| ------ | ------ |
+| Random Forest Classifier | 0.9778 |
+| Logistic Regression   | 0.8777 |
+| SVC  | 0.9830 |
+| MLP Classifier  | 0.9830 |
+| Cat Boost Classifier  | 0.9809 |
+| AdaBoost Classifier  | 0.8908 |
+| Extra Trees Classifier    | 0.9817 |
+| Gradient Boosting Classifier   | 0.9643 |
+| Hist Gradient Boosting Classifier | 0.9756 |
+| XGB Classifier   | 0.9752 |
+| XGBRF Classifier   | 0.9504 |
+Tabel 3.1 Hasil Akurasi
+
+![image](https://github.com/user-attachments/assets/f8237748-8a5a-48c0-a3b8-4effe7eec70d)
+Gambar 3.1 Visualisasi Akurasi Model
+
+Dilihat dari **Tabel Hasil Accuracy** dan **Gambar Visualisasi Accuracy Model**, dapat diketahui bahwa model dengan algoritma **SVC** dan **MLPClassifier** memiliki akurasi tertinggi dengan nilai **0.9830**. Oleh karena itu, salah satu dari model tersebut akan dipilih untuk digunakan dalam memprediksi kualitas pisang.  Diharapkan dengan model yang telah dikembangkan ini, prediksi kualitas pisang dapat dilakukan dengan lebih baik menggunakan salah satu dari model **SVC** atau **MLPClassifier**. Alasan mengapa salah satu dari kedua metode ini dipilih adalah karena keduanya memberikan akurasi yang sangat tinggi dalam prediksi dan mampu menangani data kompleks dengan baik. 
+
+Selain itu, meskipun **RandomForestClassifier** dan **ExtraTreesClassifier** juga memiliki akurasi yang mendekati SVC dan MLPClassifier, kedua model tersebut lebih kompleks dan memerlukan lebih banyak sumber daya komputasi. Sebaliknya, **SVC** dan **MLPClassifier** lebih fleksibel dan dapat dioptimalkan untuk dataset ini tanpa overfitting yang signifikan. Oleh karena itu, model **SVC** atau **MLPClassifier** dipilih untuk digunakan karena keduanya menawarkan keseimbangan antara akurasi dan efisiensi dalam implementasi.
 
 ## Referensi
 [1] Kementerian Pertanian Republik Indonesia. (2021). Statistik Pertanian 2021. https://www.pertanian.go.id/home/?show=page&act=view&id=61
