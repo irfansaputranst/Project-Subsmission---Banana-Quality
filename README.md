@@ -330,16 +330,16 @@ Dilihat dari **Tabel Hasil Accuracy** dan **Gambar Visualisasi Accuracy Model**,
 Selain itu, meskipun **RandomForestClassifier** dan **ExtraTreesClassifier** juga memiliki akurasi yang mendekati SVC dan MLPClassifier, kedua model tersebut lebih kompleks dan memerlukan lebih banyak sumber daya komputasi. Sebaliknya, **SVC** dan **MLPClassifier** lebih fleksibel dan dapat dioptimalkan untuk dataset ini tanpa overfitting yang signifikan. Oleh karena itu, model **SVC** atau **MLPClassifier** dipilih untuk digunakan karena keduanya menawarkan keseimbangan antara akurasi dan efisiensi dalam implementasi.
 
 ## Referensi
-[1] Kementerian Pertanian Republik Indonesia. (2021). Statistik Pertanian 2021. https://www.pertanian.go.id/home/?show=page&act=view&id=61
-[2] Bugaud, C., Chillet, M., Beauté, M. P., & Dubois, C. (2006). Physicochemical analysis of mountain bananas from the French West Indies. Scientia Horticulturae, 108(2), 167-172. https://doi.org/10.1016/j.scienta.2006.01.025. Jurnal ini menganalisis sifat fisikokimia pisang, termasuk tekstur dan kematangan.
-[3] Marimin, M., Arkeman, Y., Luthfiyanti, R., & Juharni, S. R. (2019). Intelligent Supply Chain Management of Agricultural Products Based on Internet of Things. IOP Conference Series: Earth and Environmental Science, 347(1), 012068. https://doi.org/10.1088/1755-1315/347/1/012068
-[4] Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
-[5] Cox, D. R. (1958). The regression analysis of binary sequences. Journal of the Royal Statistical Society: Series B (Methodological), 20(2), 215-232.
-[6] Cortes, C., & Vapnik, V. (1995). Support-vector networks. Machine learning, 20(3), 273-297.
-[7] Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323(6088), 533-536.
-[8] Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A. (2018). CatBoost: unbiased boosting with categorical features. Advances in neural information processing systems, 31.
-[9] Freund, Y., & Schapire, R. E. (1997). A decision-theoretic generalization of on-line learning and an application to boosting. Journal of computer and system sciences, 55(1), 119-139.
-[10] Geurts, P., Ernst, D., & Wehenkel, L. (2006). Extremely randomized trees. Machine learning, 63(1), 3-42.
-[11] Friedman, J. H. (2001). Greedy function approximation: a gradient boosting machine. Annals of statistics, 1189-1232.
-[12] Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., ... & Liu, T. Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. Advances in neural information processing systems, 30.
-[13] Chen, T., & Guestrin, C. (2016). Xgboost: A scalable tree boosting system. Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining, 785-794.
+1. Kementerian Pertanian Republik Indonesia. (2021). Statistik Pertanian 2021. https://www.pertanian.go.id/home/?show=page&act=view&id=61
+2. Bugaud, C., Chillet, M., Beauté, M. P., & Dubois, C. (2006). Physicochemical analysis of mountain bananas from the French West Indies. Scientia Horticulturae, 108(2), 167-172. https://doi.org/10.1016/j.scienta.2006.01.025. Jurnal ini menganalisis sifat fisikokimia pisang, termasuk tekstur dan kematangan.
+3. Marimin, M., Arkeman, Y., Luthfiyanti, R., & Juharni, S. R. (2019). Intelligent Supply Chain Management of Agricultural Products Based on Internet of Things. IOP Conference Series: Earth and Environmental Science, 347(1), 012068. https://doi.org/10.1088/1755-1315/347/1/012068
+4. Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
+5. Cox, D. R. (1958). The regression analysis of binary sequences. Journal of the Royal Statistical Society: Series B (Methodological), 20(2), 215-232.
+6. Cortes, C., & Vapnik, V. (1995). Support-vector networks. Machine learning, 20(3), 273-297.
+7. Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323(6088), 533-536.
+8. Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A. (2018). CatBoost: unbiased boosting with categorical features. Advances in neural information processing systems, 31.
+9. Freund, Y., & Schapire, R. E. (1997). A decision-theoretic generalization of on-line learning and an application to boosting. Journal of computer and system sciences, 55(1), 119-139.
+10. Geurts, P., Ernst, D., & Wehenkel, L. (2006). Extremely randomized trees. Machine learning, 63(1), 3-42.
+11. Friedman, J. H. (2001). Greedy function approximation: a gradient boosting machine. Annals of statistics, 1189-1232.
+12. Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., ... & Liu, T. Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. Advances in neural information processing systems, 30.
+13. Chen, T., & Guestrin, C. (2016). Xgboost: A scalable tree boosting system. Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining, 785-794.
