@@ -63,7 +63,8 @@ Tujuan dari projek ini adalah:
 Berikut adalah informasi pada dataset. Data yang digunakan dalam pembuatan model merupakan data primer, yang disediakan secara publik di kaggle dengan nama dataset yaitu: _Banana Quality_
 
 ![image](https://github.com/user-attachments/assets/6f6119e0-c633-4282-9453-71d5e1621685)
-Tabel 1. Exploratory Data Analysis (EDA) Deskripsi Variabel
+
+**Tabel 1. Exploratory Data Analysis (EDA) Deskripsi Variabel**
 
 Dilihat bahwa dari _Tabel 1. Exploratory Data Analysis (EDA) Variabel_ dataset ini telah di bersihkan dan normalisasi oleh pembuat, sehingga mudah digunakan dan ramah bagi pemula.
 * Dataset berupa CSV (Comma-Sepereted Values)
@@ -86,12 +87,14 @@ Semua fitur memiliki pengaruh kualitas buah pisang
 ### Exploratory Data Analysis - Univariate Analysis/Distribution of Target Variabel
 ![image](https://github.com/user-attachments/assets/3a9fb456-e5a8-4e6a-ae5d-c6d26399d2bf)
 
-Gambar 1.1 Analisis Univariate (Data Kategori)
-
+**Gambar 1.1 Analisis Univariate (Data Kategori)
+**
 Berdasarkan Gambar 1.1 , dapat dilihat bahwa distribusi data katagorik Quality yang terdiri dari good dan bad kualitas pisang, yang mana nilai data bad terdiri dari 3994 dan good terdiri dari 4006, yang mana menunjukan perbandingan data yang tidak terlalu jauh. 
 
 ![image](https://github.com/user-attachments/assets/09d81ab4-1f5e-4d0b-9f5a-4c36acf44609)
-Gambar 1.2 Analisis Univariate (Data Numerik)
+
+**Gambar 1.2 Analisis Univariate (Data Numerik)
+**
 
 #### Variabel yang Dianalisis
 
@@ -134,18 +137,18 @@ Setelah melihat distribusi dari variabel-variabel di atas, dapat disimpulkan bah
 ### EDA - Multivariate Analysis
 ![image](https://github.com/user-attachments/assets/ddac66a4-b3e8-4366-bd05-6070d0ea9460)
 
-Gambar 2.1 Analisis Multivariate
-
+**Gambar 2.1 Analisis Multivariate
+**
 ![image](https://github.com/user-attachments/assets/aab8bacf-4b2d-422f-a74c-96559e14602c)
 
-Gambar 2.2 Analisis Matriks Korelasi
+**Gambar 2.2 Analisis Matriks Korelasi**
 
-### Gambar 2.1 : Analisis Multivariate
+### Analisis Multivariate
 - **Pola Acak:** Sebagian besar fitur menunjukkan pola acak, mengindikasikan hubungan yang lemah.
 - **Size vs Sweetness:** Korelasi negatif terlihat; semakin kecil ukuran buah, semakin manis rasanya.
 - **Softness vs Sweetness:** Tidak ada korelasi jelas, menunjukkan tekstur tidak memengaruhi kemanisan.
 
-### Gambar 2.2: Matriks Korelasi
+### Matriks Korelasi
 - **Size dan Harvest Time:** Korelasi positif (**0.580**), semakin besar ukuran buah, semakin lama waktu panen.
 - **Weight dan Acidity:** Korelasi positif (**0.430**), buah yang lebih berat cenderung lebih asam.
 - **Quality dengan Harvest Time dan Ripeness:** Korelasi masing-masing **0.387** dan **0.361**, menunjukkan pengaruh waktu panen dan kematangan terhadap kualitas.
@@ -316,10 +319,11 @@ Berikut adalah hasil _accuracy_ 11 buah model yang dilatih:
 | Hist Gradient Boosting Classifier | 0.9756 |
 | XGB Classifier   | 0.9752 |
 | XGBRF Classifier   | 0.9504 |
-Tabel 3.1 Hasil Akurasi
+
+**Tabel 3.1 Hasil Akurasi**
 
 ![image](https://github.com/user-attachments/assets/f8237748-8a5a-48c0-a3b8-4effe7eec70d)
-Gambar 3.1 Visualisasi Akurasi Model
+**Gambar 3.1 Visualisasi Akurasi Model**
 
 Dilihat dari **Tabel Hasil Accuracy** dan **Gambar Visualisasi Accuracy Model**, dapat diketahui bahwa model dengan algoritma **SVC** dan **MLPClassifier** memiliki akurasi tertinggi dengan nilai **0.9830**. Oleh karena itu, salah satu dari model tersebut akan dipilih untuk digunakan dalam memprediksi kualitas pisang.  Diharapkan dengan model yang telah dikembangkan ini, prediksi kualitas pisang dapat dilakukan dengan lebih baik menggunakan salah satu dari model **SVC** atau **MLPClassifier**. Alasan mengapa salah satu dari kedua metode ini dipilih adalah karena keduanya memberikan akurasi yang sangat tinggi dalam prediksi dan mampu menangani data kompleks dengan baik. 
 
