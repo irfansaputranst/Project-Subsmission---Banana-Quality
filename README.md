@@ -47,9 +47,6 @@ Tujuan dari projek ini adalah:
   * XGBRF (XGBoost Random Forest) adalah hybrid antara XGBoost dan Random Forest. Ini menggabungkan teknik bagging dari Random Forest dengan kekuatan XGBoost sebagai base learner [13].
 
 ## Data Understanding
-### Exploratory Data Analysis (EDA) - Deskripsi Variabel
-#### Informasi Dataset
-
 | Jenis | Keterangan |
 | ------ | ------ |
 | Title | _Banana Quality_ |
@@ -60,19 +57,11 @@ Tujuan dari projek ini adalah:
 | Tags | _Earth and Nature, Education, Food, Data Visualization, Exploratory Data Analysis, Binary Classification_ |
 | Usability | 10.00 |
 
+Data yang digunakan pada proyek ini adalah _Banana Quality_ yang diunduh dari platform [Kaggle](https://www.kaggle.com/datasets/l3llff/banana). Karakterisitik terdiri dari 8 jenis fitur yang mencakup fitur numerik dan non-numerik (kategorikal). 
+
 Berikut adalah informasi pada dataset. Data yang digunakan dalam pembuatan model merupakan data primer, yang disediakan secara publik di kaggle dengan nama dataset yaitu: _Banana Quality_
 
-![image](https://github.com/user-attachments/assets/6f6119e0-c633-4282-9453-71d5e1621685)
-
-**Tabel 1. Exploratory Data Analysis (EDA) Deskripsi Variabel**
-
-Dilihat bahwa dari _Tabel 1. Exploratory Data Analysis (EDA) Variabel_ dataset ini telah di bersihkan dan normalisasi oleh pembuat, sehingga mudah digunakan dan ramah bagi pemula.
-* Dataset berupa CSV (Comma-Sepereted Values)
-* Dataset memiliki 8000 sample dengan 8 fitur
-* Dataset memiliki 7 fitur bertipe float64 dan 2 bertipe object
-* Tidak terdapat missing value
-
-### Variabel pada Dataset
+#### Variabel-variabel pada Banana Quality
 * Ukuran - ukuran buah
 * Berat - berat buah
 * Rasa manis - rasa manis buah
@@ -82,19 +71,69 @@ Dilihat bahwa dari _Tabel 1. Exploratory Data Analysis (EDA) Variabel_ dataset i
 * Keasaman - keasaman buah
 * Kualitas - kualitas buah
 
-Semua fitur memiliki pengaruh kualitas buah pisang
+#### Berikut adalah tahapan untuk memahami sebuah data:
+* Data Loading
+* Exploratory Data Analysis - Deskripsi Variabel
+* Exploratory Data Analysis - Mengidentifisikan Missing Value, Outlier, dan hapus fitur yang tidak diperlukan
+* Exploratory Data Analysis - Univariate Analysis
+* Exploratory Data Analaysis - Multivariate Analysis
+
+#### Data Loading
+Bagian ini, dataset secara langsung dibaca dari folder yang sudah di download melalui _Banana Quality_. Dataset yang digunakan adalah _banana_quality.csv_ yang berisikan data-data yang digunakan untuk pelatihan model.
+![image](https://github.com/user-attachments/assets/26b3ed9a-c1e7-46c8-a7eb-f81971f5715a)
+
+Gambar 1.1 Data dari _Banana Quality_
+
+Berdasarkan Gambar 1.1 informasi yang didapat dataset sebagai berikut:
+* Dataset berupa CSV (Comma-Sepereted Values)
+* Dataset memiliki 8000 sample dengan 8 fitur
+* Dataset memiliki 7 fitur bertipe float64 dan 2 bertipe object
+* Tidak terdapat missing value
+
+#### Exploratory Data Analysis - Deskripsi Variabel
+Exploratory Data Analysis (EDA) adalah proses awal dalam menganalisis data untuk memahami karakteristik, pola, anomali, dan memverifikasi asumsi dalam dataset. EDA berfokus pada eksplorasi deskriptif variabel untuk mendapatkan informasi yang lebih mendalam dan memvalidasi integritas data.
+
+Dalam kasus yang berasal dari [Kaggle](https://www.kaggle.com/datasets/l3llff/banana), terdapat sekitar 8 variabel yang berkaitan dengan kualitas pisang, di mana detail lebih lanjut tentang variabel-variabel tersebut tercantum dalam pada laman kaggle tersendiri. EDA berfungsi sebagai langkah awal untuk memahami keseluruhan dataset sebelum melanjutkan ke analisis yang lebih mendalam atau pemodelan prediktif. Setelah melakukan pengecekkan pada dataset, tidak terdapat fitur/kolom yang memiliki nilai null/NaN. Selanjutnya, karena semua kolom telah memiliki tipe data yang sesuai dilakukan proses pengecekan deskripsi statistik data menggunakan fitur describe(). 
+
+Fungsi describe() sendiri memberikan informasi statistik pada masing-masing fitur/kolom, diantara lain:
+* Count adalah jumlah sampel pada data.
+* Mean adalah nilai rata-rata.
+* Std adalah standar deviasi.
+* Min yaitu nilai minimum setiap kolom.
+* 25% adalah kuartil pertama. Kuartil adalah nilai yang menandai batas interval dalam empat bagian sebaran yang sama.
+* 50% adalah kuartil kedua, atau biasa juga disebut median (nilai tengah).
+* 75% adalah kuartil ketiga.
+* Max adalah nilai maksimum.
+
+#### Exploratory Data Analysis - Mengidentifisikan Missing Value, Outlier, dan hapus fitur yang tidak diperlukan
+Pada proses EDA dilakukan kegiatan seperti Data Gathering, Data Assessing, dan Data Cleaning. Pada proses Data Gathering, data diimpor sedemikian rupa agar bisa dibaca dengan baik menggunakan dataframe Pandas. Untuk proses Data Assessing, berikut adalah beberapa pengecekan yang dilakukan:
+* Duplicate data (data yang serupa dengan data lainnya).
+* Missing value (data atau informasi yang "hilang" atau tidak tersedia)
+* Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada).
+
+Pada proses Data Cleaning yang dilakukan adalah seperti:
+* Converting Column Type (Mengubah tipe suatu kolom).
+* Train Test Split (membagi data menjadi data latih dan data uji).
+* Normalization (mentransformasi data ke dalam skala yang seragam sehingga semua fitur atau atribut memiliki rentang nilai yang sebanding).
+
+Pada projek kasus ini tidak ditemukannya data duplikat dan _missing value_. Adapun untuk outlier juga dilakukan dengan metode _dropping_ menggunakan metode IQR. IQR dihitung dengan mengurangkan kuartil ketiga (Q3) dari kuartil pertama (Q1) sebagaimana rumusnya berikut:
+
+$$IQR = Q_3 - Q_1$$
+
+* Q1 sebagai kuartil pertama
+* Q3 sebagai kuartil ketiga
+Setelah menggunakan metode IQR untuk menghilangkan _outlier_ pada dataset jumlah dataset menjadi 7657 yang awalnya adalah 8000. Pada proyek ini digunakan _Train Test Split_ pada library _sklearn.model_selection_ untuk membagi dataset menjadi data latih dan data uji dengan pembagian sebesar 30:70 dan random state sebesar 42. Pada projek kasus ini digunakan _Normalization_ pada libarary _sklearn.preprocessing_ untuk menormalisasikan dataset. Semua proses ini diperlukan dalam rangka membuat model yang baik
 
 ### Exploratory Data Analysis - Univariate Analysis/Distribution of Target Variabel
 ![image](https://github.com/user-attachments/assets/3a9fb456-e5a8-4e6a-ae5d-c6d26399d2bf)
 
-**Gambar 1.1 Analisis Univariate (Data Kategori)
-**
-Berdasarkan Gambar 1.1 , dapat dilihat bahwa distribusi data katagorik Quality yang terdiri dari good dan bad kualitas pisang, yang mana nilai data bad terdiri dari 3994 dan good terdiri dari 4006, yang mana menunjukan perbandingan data yang tidak terlalu jauh. 
+Gambar 2.1 Analisis Univariate (Data Kategori)
+
+Berdasarkan Gambar 2.1 , dapat dilihat bahwa distribusi data katagorik Quality yang terdiri dari good dan bad kualitas pisang, yang mana nilai data bad terdiri dari 3994 dan good terdiri dari 4006, yang mana menunjukan perbandingan data yang tidak terlalu jauh. 
 
 ![image](https://github.com/user-attachments/assets/09d81ab4-1f5e-4d0b-9f5a-4c36acf44609)
 
-**Gambar 1.2 Analisis Univariate (Data Numerik)
-**
+Gambar 2.2 Analisis Univariate (Data Numerik)
 
 #### Variabel yang Dianalisis
 
@@ -137,11 +176,11 @@ Setelah melihat distribusi dari variabel-variabel di atas, dapat disimpulkan bah
 ### EDA - Multivariate Analysis
 ![image](https://github.com/user-attachments/assets/ddac66a4-b3e8-4366-bd05-6070d0ea9460)
 
-**Gambar 2.1 Analisis Multivariate
-**
+Gambar 3.1 Analisis Multivariate
+
 ![image](https://github.com/user-attachments/assets/aab8bacf-4b2d-422f-a74c-96559e14602c)
 
-**Gambar 2.2 Analisis Matriks Korelasi**
+Gambar 3.2 Analisis Matriks Korelasi
 
 ### Analisis Multivariate
 - **Pola Acak:** Sebagian besar fitur menunjukkan pola acak, mengindikasikan hubungan yang lemah.
@@ -160,137 +199,180 @@ Setelah melihat distribusi dari variabel-variabel di atas, dapat disimpulkan bah
 ---
 
 ## Data Prepation
-Pada proses Data Preparation dilakukan kegiatan seperti Data Gathering, Data Assessing, dan Data Cleaning. Pada proses Data Gathering, data diimpor sedemikian rupa agar bisa dibaca dengan baik menggunakan dataframe Pandas. Untuk proses Data Assessing, berikut adalah beberapa pengecekan yang dilakukan:
-* Duplicate data (data yang serupa dengan data lainnya).
-* Missing value (data atau informasi yang "hilang" atau tidak tersedia)
-* Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada).
+Pada bagian ini, memiliki 3 tahap persiapan data, diantaranya:
+* Encoding fitur kategori
+* Pembagian dataset dengan fungsi train_set_split dari library sklearn.
+* Standarisasi
 
-Pada proses Data Cleaning yang dilakukan adalah seperti:
-* Converting Column Type (Mengubah tipe suatu kolom).
-* Train Test Split (membagi data menjadi data latih dan data uji).
-* Normalization (mentransformasi data ke dalam skala yang seragam sehingga semua fitur atau atribut memiliki rentang nilai yang sebanding).
+#### Encoding Fitur Kategori
+Proses encoding fitur kategori menggunakan teknik one-hot-encoding. Teknik ini adalah salah satu metode dalam proses encoding fitur (feature encoding) pada data kategorikal. Tujuannya adalah untuk mengubah variabel kategorikal menjadi representasi biner yang dapat digunakan dalam algoritma pembelajaran mesin.
 
-Pada projek kasus ini tidak ditemukannya data duplikat dan _missing value_. Adapun untuk outlier juga dilakukan dengan metode _dropping_ menggunakan metode IQR. IQR dihitung dengan mengurangkan kuartil ketiga (Q3) dari kuartil pertama (Q1) sebagaimana rumusnya berikut:
+![image](https://github.com/user-attachments/assets/3c5216be-2116-4e4d-95c8-bee3ee6e57ca)
 
-$$IQR = Q_3 - Q_1$$
+Gambar 4.1 Dataset hasil dari Encoding Fitur Kategori
 
-* Q1 sebagai kuartil pertama
-* Q3 sebagai kuartil ketiga
-Setelah menggunakan metode IQR untuk menghilangkan _outlier_ pada dataset jumlah dataset menjadi 7657 yang awalnya adalah 8000. Pada proyek ini digunakan _Train Test Split_ pada library _sklearn.model_selection_ untuk membagi dataset menjadi data latih dan data uji dengan pembagian sebesar 30:70 dan random state sebesar 42. Pada projek kasus ini digunakan _Normalization_ pada libarary _sklearn.preprocessing_ untuk menormalisasikan dataset. Semua proses ini diperlukan dalam rangka membuat model yang baik
+#### Train-Test-Split
+Selanjutnya ialah membagi dataset data latih (train) dan data uji (test). Proses pembagian dataset ini menggunakan library sklearn yaitu train-test-split. Proporsi pembagian adalah 70:30. Hasil pembagian ini menghasilkan sampel untuk train dataset sebesar 5359 dan sampel untuk test dataset sebesar 2298 dari total keseluruhan dataset yaitu sebesar 7657 buah sampel
+
+#### Standarisasi/Normalisasi
+Hal ini mungkin tidak dapat dilakukan karena nilai variansnya tidak tinggi
 
 # Modeling
 Algoritma pada proyek ini melakukan pemodelan dengan  11 algoritma, yaitu:
-### 1. Random Forest Classifier
-**Penjelasan:** Metode ensemble learning yang membangun banyak pohon keputusan dan menggabungkan hasilnya untuk klasifikasi.  
-**Keuntungan:** 
-- Kinerja baik pada berbagai jenis dataset
-- Tahan terhadap overfitting
-- Menangani fitur yang tidak relevan  
-**Kerugian:** 
-- Komputasional mahal untuk dataset besar
-- Kurang interpretable dibandingkan pohon keputusan tunggal  
+## 1. Random Forest Classifier
 
-### 2. Logistic Regression
-**Penjelasan:** Model statistik yang memprediksi probabilitas kejadian berdasarkan satu atau lebih variabel independen.  
-**Keuntungan:** 
-- Sederhana dan mudah diinterpretasi
-- Efisien untuk dataset yang dapat dipisahkan secara linear
-- Memberikan probabilitas sebagai output  
-**Kerugian:** 
-- Asumsi linearitas antara variabel independen dan log-odds
-- Kurang efektif untuk hubungan non-linear  
+**Cara kerja:**  
+Random Forest adalah metode ensemble yang membangun banyak pohon keputusan dari subset data yang dipilih secara acak (bootstrap sampling). Pada setiap node dalam pohon, hanya sebagian kecil fitur yang dipertimbangkan untuk melakukan split. Prediksi akhir diambil berdasarkan suara mayoritas dari semua pohon.
 
-### 3. Support Vector Classifier (SVC)
-**Penjelasan:** Algoritma yang mencari hyperplane optimal untuk memisahkan kelas-kelas dalam ruang fitur.  
-**Keuntungan:** 
-- Efektif dalam ruang dimensi tinggi
-- Fleksibel dengan penggunaan berbagai kernel
-- Kuat terhadap overfitting di ruang dimensi tinggi  
-**Kerugian:** 
-- Lambat untuk dataset besar
-- Pemilihan kernel dan parameter yang tepat dapat menjadi tantangan
-- Kurang interpretable  
+**Keuntungan:**  
+- Kinerja sangat baik pada dataset yang bervariasi.
+- Menangani fitur yang tidak relevan dengan baik melalui pemilihan fitur acak.
+- Tahan terhadap overfitting karena penggabungan beberapa pohon.
 
-### 4. MLP Classifier
-**Penjelasan:** Jaringan saraf tiruan feedforward dengan setidaknya tiga lapisan node.  
-**Keuntungan:** 
-- Mampu mempelajari model nonlinear yang kompleks
-- Dapat menangani data multidimensi
-- Kemampuan generalisasi yang baik jika diatur dengan benar  
-**Kerugian:** 
-- Rentan terhadap overfitting, terutama pada dataset kecil
-- Sensitif terhadap scaling fitur
-- Membutuhkan tuning hyperparameter yang ekstensif  
+**Kekurangan:**  
+- Komputasi intensif karena membangun banyak pohon.
+- Kurang interpretable karena sulit memahami logika keseluruhan model ensemble.
 
-### 5. CatBoost Classifier
-**Penjelasan:** Implementasi gradient boosting yang efisien dalam menangani fitur kategorikal.  
-**Keuntungan:** 
-- Penanganan otomatis untuk fitur kategorikal
-- Kinerja baik tanpa tuning ekstensif
-- Implementasi GPU untuk pelatihan lebih cepat  
-**Kerugian:** 
-- Memerlukan memori besar untuk dataset besar
-- Mungkin lebih lambat daripada beberapa algoritma boosting lainnya  
+## 2. Logistic Regression
 
-### 6. AdaBoost Classifier
-**Penjelasan:** Algoritma meta-learning yang mengkombinasikan beberapa weak learner untuk membentuk strong learner.  
-**Keuntungan:** 
-- Sederhana dan mudah diimplementasikan
-- Dapat digunakan dengan berbagai base learner
-- Cenderung tidak overfitting  
-**Kerugian:** 
-- Sensitif terhadap noise dan outlier
-- Komputasional mahal untuk dataset besar  
+**Cara kerja:**  
+Logistic Regression bekerja dengan menghitung log-odds dari variabel target (kelas) sebagai kombinasi linear dari variabel independen (fitur). Model ini menggunakan fungsi logistik (sigmoid) untuk memetakan output ke probabilitas antara 0 dan 1. Prediksi dihasilkan dengan menetapkan threshold (biasanya 0.5) untuk menentukan kelas.
 
-### 7. Extra Trees Classifier
-**Penjelasan:** Varian dari Random Forest yang menggunakan pemilihan fitur dan split point acak.  
-**Keuntungan:** 
-- Lebih cepat dibandingkan Random Forest
-- Mengurangi varians lebih baik
-- Baik dalam menangani noise  
-**Kerugian:** 
-- Mungkin kurang akurat dibandingkan Random Forest
-- Dapat menghasilkan pohon yang terlalu dalam jika tidak dibatasi  
+**Keuntungan:**  
+- Model sederhana, mudah diimplementasikan, dan mudah diinterpretasi.
+- Cepat dan efisien, terutama pada dataset yang dapat dipisahkan secara linear.
+- Memberikan probabilitas sebagai output, bermanfaat untuk analisis risiko.
 
-### 8. Gradient Boosting Classifier
-**Penjelasan:** Teknik ensemble yang membangun model prediktif secara bertahap.  
-**Keuntungan:** 
-- Kinerja sangat baik pada berbagai jenis dataset
-- Menangani interaksi kompleks antar fitur
-- Fleksibel, dapat dioptimalkan untuk berbagai fungsi loss  
-**Kerugian:** 
-- Rentan terhadap overfitting jika tidak diatur dengan hati-hati
-- Komputasional mahal untuk dataset besar  
+**Kekurangan:**  
+- Mengasumsikan linearitas antara fitur dan log-odds.
+- Kurang efektif untuk hubungan non-linear tanpa penambahan fitur atau transformasi.
 
-### 9. Hist Gradient Boosting Classifier
-**Penjelasan:** Implementasi Gradient Boosting yang lebih cepat menggunakan histogram.  
-**Keuntungan:** 
-- Lebih cepat daripada Gradient Boosting tradisional
-- Dapat menangani dataset besar dengan efisien
-- Kinerja sebanding atau lebih baik daripada implementasi lainnya  
-**Kerugian:** 
-- Kurang akurat untuk dataset kecil
-- Kehilangan presisi karena binning fitur  
+## 3. Support Vector Classifier (SVC)
 
-### 10. XGBoost Classifier
-**Penjelasan:** Implementasi gradient boosting yang dioptimalkan untuk kinerja dan skalabilitas.  
-**Keuntungan:** 
-- Kinerja sangat baik pada berbagai jenis masalah
-- Dapat menangani dataset besar dengan efisien
-- Fitur built-in untuk menangani data yang hilang  
-**Kerugian:** 
-- Komputasional mahal untuk dataset besar
-- Membutuhkan tuning hyperparameter yang cermat  
+**Cara kerja:**  
+SVC bekerja dengan mencari hyperplane optimal yang memisahkan dua kelas dalam ruang fitur dengan margin maksimum. Algoritma ini mencoba menemukan hyperplane yang memaksimalkan jarak terdekat antara kelas yang berbeda. Jika data tidak linear, kernel trick digunakan untuk mentransformasi data ke dimensi yang lebih tinggi.
 
-### 11. XGBRF Classifier
-**Penjelasan:** Kombinasi dari XGBoost dan Random Forest.  
-**Keuntungan:** 
-- Menggabungkan kekuatan XGBoost dan Random Forest
-- Potensial mengurangi overfitting dibandingkan XGBoost standar
-- Kinerja lebih stabil pada dataset beragam  
-**Kerugian:** 
-- Komputasional lebih mahal
-- Memerlukan lebih banyak memori
+**Keuntungan:**  
+- Efektif dalam ruang dimensi tinggi.
+- Fleksibel karena bisa menggunakan berbagai kernel (linear, polynomial, radial).
+- Kuat terhadap overfitting dalam ruang dimensi tinggi dengan margin yang baik.
+
+**Kekurangan:**  
+- Lambat untuk dataset besar, karena membutuhkan banyak komputasi.
+- Pemilihan kernel dan parameter yang tepat bisa menjadi tantangan.
+
+## 4. MLP Classifier (Multilayer Perceptron)
+
+**Cara kerja:**  
+MLP adalah jaringan saraf tiruan feedforward yang terdiri dari lapisan input, lapisan tersembunyi, dan lapisan output. Setiap node (neuron) dihubungkan ke semua neuron di lapisan berikutnya, dan bobot antara neuron diperbarui melalui backpropagation menggunakan algoritma optimasi seperti stochastic gradient descent (SGD).
+
+**Keuntungan:**  
+- Dapat mempelajari hubungan non-linear yang kompleks antara fitur.
+- Kemampuan generalisasi yang baik jika disetel dengan benar.
+- Dapat menangani data yang memiliki banyak fitur atau dimensi.
+
+**Kekurangan:**  
+- Rentan terhadap overfitting, terutama pada dataset kecil.
+- Membutuhkan banyak tuning hyperparameter (seperti jumlah neuron, lapisan, learning rate).
+- Komputasi yang mahal dan sensitif terhadap scaling fitur.
+
+## 5. CatBoost Classifier
+
+**Cara kerja:**  
+CatBoost adalah algoritma gradient boosting yang dirancang untuk menangani variabel kategorikal secara otomatis tanpa pre-processing. CatBoost membangun model secara bertahap, di mana setiap model baru berfokus pada memperbaiki kesalahan dari model sebelumnya.
+
+**Keuntungan:**  
+- Efisien dalam menangani fitur kategorikal tanpa perlu melakukan encoding manual.
+- Kinerja baik bahkan tanpa tuning hyperparameter yang ekstensif.
+- Mendukung penggunaan GPU untuk mempercepat pelatihan.
+
+**Kekurangan:**  
+- Memerlukan memori besar untuk dataset besar.
+- Mungkin lebih lambat dalam beberapa kasus dibandingkan algoritma boosting lainnya.
+
+## 6. AdaBoost Classifier
+
+**Cara kerja:**  
+AdaBoost menggabungkan beberapa weak learners (biasanya pohon keputusan sederhana) menjadi satu strong learner. Algoritma ini memberikan bobot lebih besar pada sampel yang salah diklasifikasikan pada iterasi sebelumnya, sehingga model baru lebih fokus pada kesalahan sebelumnya.
+
+**Keuntungan:**  
+- Sederhana dan mudah diimplementasikan.
+- Dapat digunakan dengan berbagai base learners.
+- Cenderung tidak overfitting karena fokus pada sampel yang salah klasifikasi.
+
+**Kekurangan:**  
+- Sensitif terhadap noise dan outlier karena fokus berlebih pada kesalahan.
+- Komputasi intensif untuk dataset besar.
+
+## 7. Extra Trees Classifier
+
+**Cara kerja:**  
+Extra Trees (Extremely Randomized Trees) mirip dengan Random Forest tetapi melakukan split pohon secara acak untuk meningkatkan kecepatan. Algoritma ini memilih split point dan fitur secara acak, menghasilkan variasi yang lebih besar dalam pohon tetapi dengan proses yang lebih cepat.
+
+**Keuntungan:**  
+- Lebih cepat daripada Random Forest karena split acak.
+- Mengurangi varians lebih baik pada data yang berisik.
+- Baik untuk dataset besar dan kompleks.
+
+**Kekurangan:**  
+- Bisa kurang akurat dibandingkan Random Forest karena split yang terlalu acak.
+- Pohon yang terlalu dalam dapat terbentuk jika tidak ada batasan.
+
+## 8. Gradient Boosting Classifier
+
+**Cara kerja:**  
+Gradient Boosting bekerja dengan membangun model secara bertahap, di mana setiap model baru berfokus pada memperbaiki kesalahan yang dibuat oleh model sebelumnya. Algoritma ini menghitung gradien dari fungsi loss dan menggunakan gradien tersebut untuk memperbarui model.
+
+**Keuntungan:**  
+- Kinerja yang sangat baik pada berbagai jenis dataset.
+- Dapat menangani interaksi fitur yang kompleks.
+- Fleksibel, dapat dioptimalkan untuk berbagai fungsi loss.
+
+**Kekurangan:**  
+- Rentan terhadap overfitting jika tidak dikendalikan dengan hati-hati.
+- Komputasi mahal untuk dataset besar.
+
+## 9. Hist Gradient Boosting Classifier
+
+**Cara kerja:**  
+Hist Gradient Boosting adalah varian dari Gradient Boosting yang lebih cepat karena menggunakan binning untuk mengelompokkan nilai fitur ke dalam interval diskret sebelum melakukan split pohon.
+
+**Keuntungan:**  
+- Lebih cepat daripada Gradient Boosting tradisional.
+- Dapat menangani dataset besar secara efisien.
+- Kinerja sebanding atau lebih baik daripada Gradient Boosting standar.
+
+**Kekurangan:**  
+- Kurang akurat pada dataset kecil.
+- Kehilangan presisi karena binning fitur, terutama pada data yang kontinu.
+
+## 10. XGBoost Classifier
+
+**Cara kerja:**  
+XGBoost adalah implementasi gradient boosting yang dioptimalkan untuk efisiensi dan performa. Algoritma ini menggunakan teknik shrinkage (regularization) untuk mencegah overfitting dan mendukung penanganan data yang hilang.
+
+**Keuntungan:**  
+- Sangat efisien dan cepat, bahkan pada dataset besar.
+- Dapat menangani missing values.
+- Kinerja sangat baik pada masalah klasifikasi yang kompleks.
+
+**Kekurangan:**  
+- Membutuhkan banyak tuning hyperparameter untuk hasil optimal.
+- Komputasi mahal untuk dataset yang sangat besar.
+
+## 11. XGBRF Classifier
+
+**Cara kerja:**  
+XGBRF adalah kombinasi dari XGBoost dan Random Forest. Model ini menggunakan pendekatan random forest tetapi dalam konteks boosting, menggabungkan kekuatan dari kedua algoritma untuk meningkatkan stabilitas dan mengurangi overfitting.
+
+**Keuntungan:**  
+- Menggabungkan kekuatan XGBoost dan Random Forest, memberikan kinerja yang lebih stabil.
+- Potensi lebih baik dalam menangani overfitting dibandingkan XGBoost standar.
+- Lebih cocok untuk dataset yang beragam.
+
+**Kekurangan:**  
+- Komputasi lebih mahal karena menggabungkan dua pendekatan.
+- Membutuhkan memori yang lebih besar.
 
 # Evaluation
 Dalam tahap evaluasi, metrik yang digunakan adalah _accuracy_. Accuracy didapatkan dengan menghitung persentase dari jumlah prediksi benar dibagi dengan jumlah seluruh prediksi. Rumusnya sebagai berikut:
@@ -320,16 +402,17 @@ Berikut adalah hasil _accuracy_ 11 buah model yang dilatih:
 | XGB Classifier   | 0.9752 |
 | XGBRF Classifier   | 0.9504 |
 
-**Tabel 3.1 Hasil Akurasi**
+Tabel 3.1 Hasil Akurasi
 
 ![image](https://github.com/user-attachments/assets/f8237748-8a5a-48c0-a3b8-4effe7eec70d)
-**Gambar 3.1 Visualisasi Akurasi Model**
 
-Berdasarkan **Tabel Hasil Accuracy**, dapat diketahui bahwa model dengan algoritma **SVC** memiliki akurasi tertinggi, yaitu **0.9830**. Oleh karena itu, model **SVC** dipilih untuk digunakan dalam memprediksi kualitas apel. Model ini diharapkan mampu memberikan hasil prediksi yang akurat dan konsisten.
+Gambar 3.1 Visualisasi Akurasi Model
 
-Alasan mengapa **SVC** dipilih adalah karena algoritma ini memberikan performa terbaik dibandingkan model lainnya dalam tabel, dengan akurasi tertinggi. Selain itu, **SVC** dikenal efektif dalam ruang dimensi tinggi dan memiliki kemampuan yang baik dalam menangani masalah klasifikasi yang kompleks. Meskipun beberapa model seperti **MLP Classifier** dan **Extra Trees Classifier** juga menunjukkan akurasi yang mendekati SVC, **SVC** tetap unggul dalam hal performa.
+Berdasarkan **Tabel Hasil Accuracy**, dapat diketahui bahwa model dengan algoritma **SVC** memiliki akurasi tertinggi, yaitu **0.9830**. Oleh karena itu, model **SVC** dipilih untuk digunakan dalam memprediksi kualitas apel. 
 
-SVC juga memiliki keuntungan dalam hal fleksibilitas, karena mendukung penggunaan berbagai kernel yang dapat disesuaikan untuk menangani berbagai jenis data. Dengan akurasi yang tinggi dan kemampuan generalisasi yang baik, **SVC** merupakan pilihan yang optimal untuk prediksi kualitas apel pada dataset ini.
+Dari semua yang dilakukan ini menjawab dari problem statement, goal, dan solution statement. Dari proses gathering, cleaning, EDA, korelasi matriks hingga membuat perbandingan berbagai model karena model machine learning  dapat memprediksi kualitas pisang yang sangat tinggi menggunakan data visualisasi serta sensorik, jenis model yang memiliki akurasi tertinggi yaitu SVC sekitar 98,30% setelah membandingkan 10 model machine learning lainnya. Dan ini menjadi harapan bagi petani dan distributor dalam meningkatkan kualitas dan harga jualnya.
+
+
 
 ## Referensi
 1. Kementerian Pertanian Republik Indonesia. (2021). Statistik Pertanian 2021. https://www.pertanian.go.id/home/?show=page&act=view&id=61
