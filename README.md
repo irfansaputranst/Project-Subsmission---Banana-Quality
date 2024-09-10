@@ -218,161 +218,260 @@ Selanjutnya ialah membagi dataset data latih (train) dan data uji (test). Proses
 Hal ini mungkin tidak dapat dilakukan karena nilai variansnya tidak tinggi
 
 # Modeling
-Algoritma pada proyek ini melakukan pemodelan dengan  11 algoritma, yaitu:
-## 1. Random Forest Classifier
+### Algoritma Pemodelan dan Parameter yang Digunakan
+Algoritma pada proyek ini melakukan pemodelan dengan 11 algoritma, yaitu:
 
-**Cara kerja:**  
+**1. Random Forest Classifier**
+
+**Cara kerja:**
 Random Forest adalah metode ensemble yang membangun banyak pohon keputusan dari subset data yang dipilih secara acak (bootstrap sampling). Pada setiap node dalam pohon, hanya sebagian kecil fitur yang dipertimbangkan untuk melakukan split. Prediksi akhir diambil berdasarkan suara mayoritas dari semua pohon.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Kinerja sangat baik pada dataset yang bervariasi.
 - Menangani fitur yang tidak relevan dengan baik melalui pemilihan fitur acak.
 - Tahan terhadap overfitting karena penggabungan beberapa pohon.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Komputasi intensif karena membangun banyak pohon.
 - Kurang interpretable karena sulit memahami logika keseluruhan model ensemble.
 
-## 2. Logistic Regression
+**2. Logistic Regression**
 
-**Cara kerja:**  
+**Cara kerja:**
 Logistic Regression bekerja dengan menghitung log-odds dari variabel target (kelas) sebagai kombinasi linear dari variabel independen (fitur). Model ini menggunakan fungsi logistik (sigmoid) untuk memetakan output ke probabilitas antara 0 dan 1. Prediksi dihasilkan dengan menetapkan threshold (biasanya 0.5) untuk menentukan kelas.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Model sederhana, mudah diimplementasikan, dan mudah diinterpretasi.
 - Cepat dan efisien, terutama pada dataset yang dapat dipisahkan secara linear.
 - Memberikan probabilitas sebagai output, bermanfaat untuk analisis risiko.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Mengasumsikan linearitas antara fitur dan log-odds.
 - Kurang efektif untuk hubungan non-linear tanpa penambahan fitur atau transformasi.
 
-## 3. Support Vector Classifier (SVC)
+**3. Support Vector Classifier (SVC)**
 
-**Cara kerja:**  
+**Cara kerja:**
 SVC bekerja dengan mencari hyperplane optimal yang memisahkan dua kelas dalam ruang fitur dengan margin maksimum. Algoritma ini mencoba menemukan hyperplane yang memaksimalkan jarak terdekat antara kelas yang berbeda. Jika data tidak linear, kernel trick digunakan untuk mentransformasi data ke dimensi yang lebih tinggi.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Efektif dalam ruang dimensi tinggi.
 - Fleksibel karena bisa menggunakan berbagai kernel (linear, polynomial, radial).
 - Kuat terhadap overfitting dalam ruang dimensi tinggi dengan margin yang baik.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Lambat untuk dataset besar, karena membutuhkan banyak komputasi.
 - Pemilihan kernel dan parameter yang tepat bisa menjadi tantangan.
 
-## 4. MLP Classifier (Multilayer Perceptron)
+**4. MLP Classifier (Multilayer Perceptron)**
 
-**Cara kerja:**  
+**Cara kerja:**
 MLP adalah jaringan saraf tiruan feedforward yang terdiri dari lapisan input, lapisan tersembunyi, dan lapisan output. Setiap node (neuron) dihubungkan ke semua neuron di lapisan berikutnya, dan bobot antara neuron diperbarui melalui backpropagation menggunakan algoritma optimasi seperti stochastic gradient descent (SGD).
 
-**Keuntungan:**  
+**Keuntungan:**
 - Dapat mempelajari hubungan non-linear yang kompleks antara fitur.
 - Kemampuan generalisasi yang baik jika disetel dengan benar.
 - Dapat menangani data yang memiliki banyak fitur atau dimensi.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Rentan terhadap overfitting, terutama pada dataset kecil.
 - Membutuhkan banyak tuning hyperparameter (seperti jumlah neuron, lapisan, learning rate).
 - Komputasi yang mahal dan sensitif terhadap scaling fitur.
 
-## 5. CatBoost Classifier
+**5. CatBoost Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 CatBoost adalah algoritma gradient boosting yang dirancang untuk menangani variabel kategorikal secara otomatis tanpa pre-processing. CatBoost membangun model secara bertahap, di mana setiap model baru berfokus pada memperbaiki kesalahan dari model sebelumnya.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Efisien dalam menangani fitur kategorikal tanpa perlu melakukan encoding manual.
 - Kinerja baik bahkan tanpa tuning hyperparameter yang ekstensif.
 - Mendukung penggunaan GPU untuk mempercepat pelatihan.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Memerlukan memori besar untuk dataset besar.
 - Mungkin lebih lambat dalam beberapa kasus dibandingkan algoritma boosting lainnya.
 
-## 6. AdaBoost Classifier
+**6. AdaBoost Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 AdaBoost menggabungkan beberapa weak learners (biasanya pohon keputusan sederhana) menjadi satu strong learner. Algoritma ini memberikan bobot lebih besar pada sampel yang salah diklasifikasikan pada iterasi sebelumnya, sehingga model baru lebih fokus pada kesalahan sebelumnya.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Sederhana dan mudah diimplementasikan.
 - Dapat digunakan dengan berbagai base learners.
 - Cenderung tidak overfitting karena fokus pada sampel yang salah klasifikasi.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Sensitif terhadap noise dan outlier karena fokus berlebih pada kesalahan.
 - Komputasi intensif untuk dataset besar.
 
-## 7. Extra Trees Classifier
+**7. Extra Trees Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 Extra Trees (Extremely Randomized Trees) mirip dengan Random Forest tetapi melakukan split pohon secara acak untuk meningkatkan kecepatan. Algoritma ini memilih split point dan fitur secara acak, menghasilkan variasi yang lebih besar dalam pohon tetapi dengan proses yang lebih cepat.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Lebih cepat daripada Random Forest karena split acak.
 - Mengurangi varians lebih baik pada data yang berisik.
 - Baik untuk dataset besar dan kompleks.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Bisa kurang akurat dibandingkan Random Forest karena split yang terlalu acak.
 - Pohon yang terlalu dalam dapat terbentuk jika tidak ada batasan.
 
-## 8. Gradient Boosting Classifier
+**8. Gradient Boosting Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 Gradient Boosting bekerja dengan membangun model secara bertahap, di mana setiap model baru berfokus pada memperbaiki kesalahan yang dibuat oleh model sebelumnya. Algoritma ini menghitung gradien dari fungsi loss dan menggunakan gradien tersebut untuk memperbarui model.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Kinerja yang sangat baik pada berbagai jenis dataset.
 - Dapat menangani interaksi fitur yang kompleks.
 - Fleksibel, dapat dioptimalkan untuk berbagai fungsi loss.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Rentan terhadap overfitting jika tidak dikendalikan dengan hati-hati.
 - Komputasi mahal untuk dataset besar.
 
-## 9. Hist Gradient Boosting Classifier
+**9. Hist Gradient Boosting Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 Hist Gradient Boosting adalah varian dari Gradient Boosting yang lebih cepat karena menggunakan binning untuk mengelompokkan nilai fitur ke dalam interval diskret sebelum melakukan split pohon.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Lebih cepat daripada Gradient Boosting tradisional.
 - Dapat menangani dataset besar secara efisien.
 - Kinerja sebanding atau lebih baik daripada Gradient Boosting standar.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Kurang akurat pada dataset kecil.
 - Kehilangan presisi karena binning fitur, terutama pada data yang kontinu.
 
-## 10. XGBoost Classifier
+**10. XGBoost Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 XGBoost adalah implementasi gradient boosting yang dioptimalkan untuk efisiensi dan performa. Algoritma ini menggunakan teknik shrinkage (regularization) untuk mencegah overfitting dan mendukung penanganan data yang hilang.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Sangat efisien dan cepat, bahkan pada dataset besar.
 - Dapat menangani missing values.
 - Kinerja sangat baik pada masalah klasifikasi yang kompleks.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Membutuhkan banyak tuning hyperparameter untuk hasil optimal.
 - Komputasi mahal untuk dataset yang sangat besar.
 
-## 11. XGBRF Classifier
+**11. XGBRF Classifier**
 
-**Cara kerja:**  
+**Cara kerja:**
 XGBRF adalah kombinasi dari XGBoost dan Random Forest. Model ini menggunakan pendekatan random forest tetapi dalam konteks boosting, menggabungkan kekuatan dari kedua algoritma untuk meningkatkan stabilitas dan mengurangi overfitting.
 
-**Keuntungan:**  
+**Keuntungan:**
 - Menggabungkan kekuatan XGBoost dan Random Forest, memberikan kinerja yang lebih stabil.
 - Potensi lebih baik dalam menangani overfitting dibandingkan XGBoost standar.
 - Lebih cocok untuk dataset yang beragam.
 
-**Kekurangan:**  
+**Kekurangan:**
 - Komputasi lebih mahal karena menggabungkan dua pendekatan.
 - Membutuhkan memori yang lebih besar.
+
+#### Tahapan Umum dalam Pemodelan
+
+1. **Pengumpulan Data:**
+   Data diambil dari sebuah website data terkenal diseluruh yaitu Kaggle dengan judul _Banana Quality_ dengan jumlah data 80000
+
+2. **Preprocessing Data:**
+   Tahapan ini melibatkan persiapan data sebelum digunakan untuk pelatihan model. Kegiatan dalam tahap ini meliputi:
+   - **Pembersihan data** (mengatasi missing values, outliers, dsb.)
+   - **Transformasi data** (normalisasi atau standardisasi fitur)
+   - **Feature engineering** (membuat fitur baru berdasarkan pemahaman domain)
+   - **Pembagian data** menjadi data latih (training set) dan data uji (test set), dengan rasio umum 70:30.
+     
+3. **Pemilihan Algoritma:**
+   Berdasarkan karakteristik data dan tujuan pemodelan, algoritma yang sesuai dipilih dari 11 algoritma yang telah dijelaskan.
+
+4. **Pelatihan Model (Training):**
+   Pada tahap ini, algoritma yang dipilih dilatih menggunakan data latih. Algoritma akan menyesuaikan parameter internal (misalnya bobot dalam regresi logistik atau node dalam decision tree) untuk menemukan pola dari data.
+
+5. **Evaluasi Model:**
+   Setelah model dilatih, model diuji menggunakan data uji untuk mengukur performa model. Evaluasi ini biasanya menggunakan metrik seperti:
+   - **Accuracy**: Persentase prediksi yang benar.
+
+6. **Tuning Hyperparameter:**
+   Algoritma yang dipilih biasanya memerlukan penyesuaian hyperparameter agar kinerjanya optimal. Ini bisa dilakukan melalui:
+   - **Grid Search**: Mencoba semua kombinasi hyperparameter dalam grid.
+   - **Random Search**: Memilih secara acak beberapa kombinasi hyperparameter.
+   - **Cross Validation**: Teknik yang digunakan untuk mencegah overfitting, dengan memecah data latih ke dalam beberapa subset.
+
+7. **Model Deployment:**
+   Setelah model dioptimalkan, tahap terakhir adalah menerapkan model ke dalam sistem produksi agar bisa digunakan untuk memprediksi data baru.
+
+### Parameter Penting yang Digunakan
+
+Berikut adalah parameter utama dari masing-masing algoritma yang digunakan:
+
+### 1. Random Forest Classifier
+- `n_estimators`: Jumlah pohon yang akan dibangun di dalam hutan.
+- `max_depth`: Kedalaman maksimum setiap pohon keputusan.
+- `min_samples_split`: Minimum jumlah sampel yang dibutuhkan untuk membagi node.
+- `max_features`: Jumlah maksimum fitur yang dipertimbangkan untuk membagi node.
+- `bootstrap`: Jika True, sampel bootstrap digunakan saat membangun pohon.
+
+### 2. Logistic Regression
+- `C`: Parameter regulasi untuk mengontrol regularisasi. Nilai kecil memberikan regularisasi yang kuat.
+- `solver`: Algoritma yang digunakan untuk mengoptimalkan fungsi loss (misal, ‘liblinear’, ‘lbfgs’).
+- `max_iter`: Jumlah iterasi maksimum untuk algoritma optimasi.
+
+### 3. Support Vector Classifier (SVC)
+- `C`: Parameter regularisasi. Semakin besar nilainya, semakin ketat aturan dalam memisahkan data.
+- `kernel`: Jenis kernel yang digunakan (misal, ‘linear’, ‘poly’, ‘rbf’).
+- `gamma`: Parameter kernel ‘rbf’, yang mengontrol jarak pengaruh satu sampel training.
+
+### 4. MLP Classifier (Multilayer Perceptron)
+- `hidden_layer_sizes`: Ukuran dan jumlah lapisan tersembunyi dalam jaringan saraf.
+- `activation`: Fungsi aktivasi (misal, ‘relu’, ‘tanh’, ‘logistic’).
+- `alpha`: Parameter regulasi L2 untuk mencegah overfitting.
+- `learning_rate`: Kecepatan pembaruan bobot selama pelatihan.
+
+### 5. CatBoost Classifier
+- `iterations`: Jumlah iterasi boosting.
+- `depth`: Kedalaman maksimum pohon yang digunakan.
+- `learning_rate`: Kecepatan pembaruan model.
+- `l2_leaf_reg`: Regularisasi untuk mencegah overfitting.
+- `border_count`: Jumlah split pada fitur kontinu.
+
+### 6. AdaBoost Classifier
+- `n_estimators`: Jumlah weak learners yang digunakan.
+- `learning_rate`: Mengontrol kontribusi setiap weak learner.
+- `algorithm`: Tipe boosting yang digunakan (‘SAMME’, ‘SAMME.R’).
+
+### 7. Extra Trees Classifier
+- `n_estimators`: Jumlah pohon dalam hutan.
+- `max_features`: Jumlah fitur yang dipertimbangkan untuk split setiap node.
+- `min_samples_split`: Minimum sampel untuk membagi node.
+
+### 8. Gradient Boosting Classifier
+- `n_estimators`: Jumlah boosting stages.
+- `learning_rate`: Faktor pengurangan kontribusi setiap tree.
+- `max_depth`: Kedalaman maksimum pohon.
+
+### 9. Hist Gradient Boosting Classifier
+- `max_iter`: Jumlah boosting iterations.
+- `learning_rate`: Faktor yang mengontrol penambahan tree baru.
+- `max_leaf_nodes`: Jumlah maksimum node dalam setiap pohon.
+
+### 10. XGBoost Classifier
+- `n_estimators`: Jumlah boosting rounds.
+- `learning_rate`: Learning rate untuk shrinkage.
+- `max_depth`: Kedalaman maksimum setiap pohon.
+- `subsample`: Persentase sampel yang digunakan untuk membangun setiap pohon.
+- `colsample_bytree`: Persentase fitur yang dipilih secara acak untuk setiap pohon.
+
+### 11. XGBRF Classifier
+- `n_estimators`: Jumlah boosting rounds.
+- `learning_rate`: Faktor pengurangan kontribusi setiap tree.
+- `max_depth`: Kedalaman maksimum pohon.
 
 # Evaluation
 Dalam tahap evaluasi, metrik yang digunakan adalah _accuracy_. Accuracy didapatkan dengan menghitung persentase dari jumlah prediksi benar dibagi dengan jumlah seluruh prediksi. Rumusnya sebagai berikut:
@@ -410,8 +509,39 @@ Gambar 3.1 Visualisasi Akurasi Model
 
 Berdasarkan **Tabel Hasil Accuracy**, dapat diketahui bahwa model dengan algoritma **SVC** memiliki akurasi tertinggi, yaitu **0.9830**. Oleh karena itu, model **SVC** dipilih untuk digunakan dalam memprediksi kualitas apel. 
 
-Dari semua yang dilakukan ini menjawab dari problem statement, goal, dan solution statement. Dari proses gathering, cleaning, EDA, korelasi matriks hingga membuat perbandingan berbagai model karena model machine learning  dapat memprediksi kualitas pisang yang sangat tinggi menggunakan data visualisasi serta sensorik, jenis model yang memiliki akurasi tertinggi yaitu SVC sekitar 98,30% setelah membandingkan 10 model machine learning lainnya. Dan ini menjadi harapan bagi petani dan distributor dalam meningkatkan kualitas dan harga jualnya.
+#### Pemanfaatan dan Implementasi Model Machine Learning untuk Mendukung Petani dan Distributor
 
+Model machine learning, seperti **Support Vector Classifier (SVC)** yang memiliki akurasi tertinggi sebesar 98.30%, dapat digunakan untuk mendukung petani dan distributor dalam meningkatkan kualitas dan harga jual pisang melalui beberapa cara yang lebih konkret. Berikut adalah beberapa contoh implementasi:
+
+#### 1. Klasifikasi Kualitas Pisang Berdasarkan Data Sensorik
+Dengan menggunakan data visualisasi dan sensorik yang dimasukkan ke dalam model SVC, petani dan distributor dapat secara otomatis mengklasifikasikan kualitas pisang dengan cepat dan akurat. Ini mencakup parameter seperti ukuran, warna, dan faktor lainnya yang relevan dengan standar kualitas.
+
+**Contoh Implementasi:**
+- Pisang yang baru dipanen dapat langsung dipindai menggunakan perangkat sensor yang terintegrasi dengan model machine learning. Berdasarkan hasil pemindaian, pisang akan langsung diberi label kualitas tinggi, sedang, atau rendah.
+- Proses ini menghemat waktu dan tenaga manusia dalam melakukan inspeksi manual, dan hasilnya lebih objektif serta konsisten.
+
+#### 2. Pengurangan Penyortiran Manual dan Human Error
+Sebelum implementasi teknologi machine learning, penyortiran pisang biasanya dilakukan secara manual oleh pekerja. Proses ini rentan terhadap kesalahan manusia dan ketidakakuratan. Dengan model machine learning, penyortiran bisa dilakukan secara otomatis berdasarkan fitur yang sudah diajarkan kepada model.
+
+**Contoh Implementasi:**
+- Pisang yang disortir secara otomatis berdasarkan kualitasnya dapat langsung dipisahkan dalam berbagai kategori yang disesuaikan dengan kebutuhan pasar, seperti pisang untuk pasar premium atau untuk pengolahan industri (misalnya, bahan baku makanan olahan).
+- Proses otomatisasi ini dapat mengurangi jumlah pisang yang salah klasifikasi, meminimalkan kerugian dari produk yang salah dikirimkan, serta meningkatkan kepuasan pelanggan karena konsistensi kualitas.
+
+#### 3. Pengoptimalan Harga Berdasarkan Kualitas
+Dengan adanya klasifikasi kualitas yang lebih presisi dan data yang terperinci mengenai kualitas setiap kelompok pisang, distributor dapat menyesuaikan harga jual berdasarkan kualitas secara lebih adil dan akurat. Pisang berkualitas tinggi dapat dijual dengan harga yang lebih tinggi, sementara pisang dengan kualitas sedang atau rendah dapat dijual ke pasar lain, seperti pasar industri.
+
+**Contoh Implementasi:**
+- Distributor dapat menggunakan data yang dihasilkan oleh model machine learning untuk menentukan segmentasi pasar yang lebih baik. Pisang dengan kualitas premium dijual ke pasar premium (supermarket atau ekspor), sedangkan pisang dengan kualitas sedang dapat diarahkan ke pasar lokal atau industri pengolahan.
+- Model ini juga memungkinkan penetapan harga dinamis berdasarkan permintaan pasar dan prediksi ketersediaan kualitas, sehingga distributor dapat memaksimalkan keuntungan dengan penetapan harga yang lebih optimal.
+
+#### 4. Dukungan Pengambilan Keputusan bagi Petani
+Model machine learning yang terintegrasi dengan data dari lapangan dan sensor dapat memberikan wawasan tambahan bagi petani dalam pengambilan keputusan terkait proses budidaya. Misalnya, petani dapat memonitor kondisi tanaman dan kualitas hasil panen secara lebih baik, memungkinkan mereka membuat keputusan yang lebih tepat tentang kapan waktu terbaik untuk memupuk, menyiram, atau memanen.
+
+**Contoh Implementasi:**
+- Sistem prediksi berbasis model machine learning dapat memberikan saran terkait perawatan lahan secara personalisasi berdasarkan kondisi real-time tanaman pisang. Hal ini membantu petani dalam menjaga kesehatan tanaman dan meningkatkan produktivitas dengan mengurangi risiko gagal panen akibat faktor lingkungan yang tidak terduga.
+- Dengan demikian, kualitas panen dapat terjaga lebih baik, mendukung peningkatan kualitas dan kuantitas hasil pertanian secara keseluruhan.
+
+Dengan demikian, **model SVC** tidak hanya memberikan prediksi yang akurat, tetapi juga memungkinkan adanya efisiensi yang lebih baik dalam berbagai aspek dari **rantai pasokan**, **peningkatan kualitas produk**, dan **pengambilan keputusan**. Implementasi model ini bisa memberikan dampak positif secara langsung bagi petani dan distributor dalam meningkatkan kualitas dan harga jual pisang, meningkatkan daya saing produk, serta mengurangi pemborosan dalam proses distribusi dan penjualan.
 
 
 ## Referensi
