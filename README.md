@@ -398,15 +398,6 @@ XGBRF adalah kombinasi dari XGBoost dan Random Forest. Model ini menggunakan pen
    Setelah model dilatih, model diuji menggunakan data uji untuk mengukur performa model. Evaluasi ini biasanya menggunakan metrik seperti:
    - **Accuracy**: Persentase prediksi yang benar.
 
-6. **Tuning Hyperparameter:**
-   Algoritma yang dipilih biasanya memerlukan penyesuaian hyperparameter agar kinerjanya optimal. Ini bisa dilakukan melalui:
-   - **Grid Search**: Mencoba semua kombinasi hyperparameter dalam grid.
-   - **Random Search**: Memilih secara acak beberapa kombinasi hyperparameter.
-   - **Cross Validation**: Teknik yang digunakan untuk mencegah overfitting, dengan memecah data latih ke dalam beberapa subset.
-
-7. **Model Deployment:**
-   Setelah model dioptimalkan, tahap terakhir adalah menerapkan model ke dalam sistem produksi agar bisa digunakan untuk memprediksi data baru.
-
 ### Parameter Penting yang Digunakan
 
 Berikut adalah parameter utama dari masing-masing algoritma yang digunakan:
